@@ -1,8 +1,9 @@
 
 const app= new Vue({
-    el: `#root`,
+    el: `#slider`,
     data:{
         currentImage: 0,
+
         images :[
             {
                 src: 'img/01.jpg',
@@ -39,6 +40,7 @@ const app= new Vue({
             if(this.currentImage === this.images.length - 1){
                 // immagine corrente ritorna a zero 
                 this.currentImage=0;
+                this.resetPlay();
                 // altrimenti incrementa di uno 
             } else{
                 this.currentImage++;
@@ -48,13 +50,40 @@ const app= new Vue({
             // se immagine corrente e' uguale alla prima immagine dell'array
             if(this.currentImage ===0){
                 // immagine corrente ritorna all'ultima immagine
-                this.currentImage=this.images.length -1
+                this.currentImage=this.images.length -1;
+                this.resetPlay();
                 // altrimenti decrementa di uno 
             } else{
                 this.currentImage--;
             }
 
         },
-    
+        selectImage(index){
+                this.currentImage=index;
+                this.resetPlay();
+        },
+        resetPlay: function() {
+                clearInterval(this.timer);
+                this.play();
+        },
+        play: function() {
+            let app = this;
+            this.timer = setInterval(function() {
+            app.clickDown();
+            }, 3000);
+        },
+        created: function() {
+            this.play();
+        }, 
+        goToSlider (sliderIndex) {
+            var self = this;
+            this.activeslider = sliderIndex;
+            clearInterval(this.sliderTimer);
+            this.sliderTimer = setInterval(() => {
+            self.nextSlider() }, self.sliderinterval);
+            
+        },
     }
+    
 });
+

@@ -10,15 +10,15 @@
 </head>
 <body>
 
-    <div id="root">
+    <div id="slider">
         <div class="container">
             <div class="items">
                 
                 <div class="item active">
                     <img :src="images[currentImage].src" alt="">
                     <div class="text">
-                        <h3>Lorem</h3>
-                        <p>{{images.text}}</p>
+                        <h3>{{images[currentImage].title}}</h3>
+                        <p>{{images[currentImage].text}}</p>
                     </div>
                 </div> 
                 
@@ -26,7 +26,7 @@
             <div class="thumbs">
                 <div class="prev" @click="clickUp"></div>
 
-                <div class="thumb" v-for="object in images">
+                <div class="thumb" v-for="(object,index) in images" :class="currentImage===index ? 'active' : ''" @click="selectImage(index)">
                     <img :src="object.src" alt="">
                 </div>  
                 
@@ -34,6 +34,7 @@
             </div>
         </div>
     </div>
+    <div class="pagination"></div>
 
    <script src="js/main.js"></script>
 </body>
