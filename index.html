@@ -24,7 +24,7 @@
                 
             </div>
             <div class="thumbs">
-                <div class="prev"></div>
+                <div class="prev" @click="clickUp"></div>
 
                 <div class="thumb" v-for="object in images">
                     <img :src="object.src" alt="">

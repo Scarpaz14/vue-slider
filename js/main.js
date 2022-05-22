@@ -33,13 +33,28 @@ const app= new Vue({
     },
 
     methods:{
+        // SE clicco la freccia giu'
         clickDown(){
+            // se immagine corrente e' uguale all'ultima immagine dell'array
             if(this.currentImage === this.images.length - 1){
+                // immagine corrente ritorna a zero 
                 this.currentImage=0;
+                // altrimenti incrementa di uno 
             } else{
                 this.currentImage++;
             }
-        }
+        },
+        clickUp(){
+            // se immagine corrente e' uguale alla prima immagine dell'array
+            if(this.currentImage ===0){
+                // immagine corrente ritorna all'ultima immagine
+                this.currentImage=this.images.length -1
+                // altrimenti decrementa di uno 
+            } else{
+                this.currentImage--;
+            }
+
+        },
     
     }
 });
