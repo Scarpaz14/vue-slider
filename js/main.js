@@ -3,6 +3,7 @@ const app= new Vue({
     el: `#slider`,
     data:{
         currentImage: 0,
+        autoPlay: null,
 
         images :[
             {
@@ -40,7 +41,6 @@ const app= new Vue({
             if(this.currentImage === this.images.length - 1){
                 // immagine corrente ritorna a zero 
                 this.currentImage=0;
-                this.resetPlay();
                 // altrimenti incrementa di uno 
             } else{
                 this.currentImage++;
@@ -51,7 +51,6 @@ const app= new Vue({
             if(this.currentImage ===0){
                 // immagine corrente ritorna all'ultima immagine
                 this.currentImage=this.images.length -1;
-                this.resetPlay();
                 // altrimenti decrementa di uno 
             } else{
                 this.currentImage--;
@@ -62,27 +61,21 @@ const app= new Vue({
                 this.currentImage=index;
                 this.resetPlay();
         },
-        resetPlay: function() {
-                clearInterval(this.timer);
-                this.play();
+
+        StartAutoplay(){
+          this.autoPlay = setInterval(()=>{
+                this.clickDown();
+        },2000)
         },
-        play: function() {
-            let app = this;
-            this.timer = setInterval(function() {
-            app.clickDown();
-            }, 3000);
-        },
-        created: function() {
-            this.play();
-        }, 
-        goToSlider (sliderIndex) {
-            var self = this;
-            this.activeslider = sliderIndex;
-            clearInterval(this.sliderTimer);
-            this.sliderTimer = setInterval(() => {
-            self.nextSlider() }, self.sliderinterval);
-            
-        },
+
+        StopAutoplay(){
+          clearInterval(this.autoPlay)  
+        }
+
+       
+    },
+    created(){
+      this.StartAutoplay();
     }
 });
 
